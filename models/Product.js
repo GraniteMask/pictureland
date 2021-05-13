@@ -19,4 +19,6 @@ const productsSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model('product', productsSchema)
+export default mongoose.models.product|| mongoose.model('product', productsSchema)
+
+//since it will be required to import this file multiple times in different file so it will give error. To save from that we use the the left hand side of || logic code.
