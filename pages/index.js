@@ -16,7 +16,7 @@ const Home = ({products}) =>{
           <p>Rs. {product.price}.</p>
         </div>
         <div className="card-action">
-          <a href="#">This is a link</a>
+          <Link href={'/product/[id]'} as={`/product/${product._id}`}><a>View Product</a></Link>
         </div>
       </div>
     )
