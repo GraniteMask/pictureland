@@ -1,4 +1,6 @@
 import {useRouter} from 'next/router'
+import baseUrl from '../../helpers/baseUrl';
+
 
 const Product = ({product}) =>{
     const router = useRouter();
@@ -25,7 +27,7 @@ const Product = ({product}) =>{
 
 export async function getStaticProps({params:{id}}){
 
-    const res = await fetch(`http://localhost:3000/api/product/${id}`)
+    const res = await fetch(`${baseUrl}/api/product/${id}`)
     const data = await res.json()
 
     return{

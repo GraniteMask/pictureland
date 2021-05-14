@@ -1,5 +1,5 @@
 import Link from 'next/Link'
-import NavBar from '../components/Navbar'
+import baseUrl from '../helpers/baseUrl'
 
 
 
@@ -31,7 +31,7 @@ const Home = ({products}) =>{
 }
 
 export async function getStaticProps(){
-  const res = await fetch('http://localhost:3000/api/products')
+  const res = await fetch(`${baseUrl}/api/products`)
   const data = await res.json()
   return{
     props:{
