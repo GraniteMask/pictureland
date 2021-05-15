@@ -1,5 +1,6 @@
 import Link from 'next/Link'
 import {useState} from 'react'
+import baseUrl from '../helpers/baseUrl'
 
 const Create = () =>{
     const [name,setName] = useState("")
@@ -7,9 +8,49 @@ const Create = () =>{
     const [media,setMedia] = useState("")
     const [description,setDescription] = useState("")
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault()
-        console.log(name, price, media, description)
+        try{
+            const mediaUrl = await imageUpload()
+        // console.log(name, price, media, description)
+        const res = await fetch(`${baseUrl}/api/products`,
+        {
+            method:"POST",
+            headers:{
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                name,
+                price,
+                mediaUrl,    //mediaUrl is name its receiving in the server end
+                description
+            })
+        })
+        const res2 = await res.json()
+        if(res2.error){
+            M.toast({html: res2.error, classes:"red"})
+        }else{
+            M.toast({html: "Product Saved", classes:"green"})
+        }
+        }catch(err){
+            console.log(err)
+        }
+        
+        
+    }
+
+    const imageUpload = async() =>{
+        const data = new FormData()
+        data.append('file', media)
+        data.append('upload_preset',"pictureland")
+        data.append('cloud_name','rd1')
+        const res = await fetch('https://api.cloudinary.com/v1_1/rd1/image/upload',{
+            method:"POST",
+            body: data
+        })
+        const res2 = await res.json()
+        console.log(res2)
+        return res2.url
     }
 
     return(

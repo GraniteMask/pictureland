@@ -26,8 +26,8 @@ const Product = ({product}) =>{
                     <p>Sure to delete??</p>
                 </div>
                 <div className="modal-footer">
-                    <button className="btn waves-effect waves-light #d32f2f red darken-2" >Yes
-                        <i className="material-icons right" onClick={()=>deleteProduct()}>delete</i>
+                    <button className="btn waves-effect waves-light #d32f2f red darken-2" onClick={()=>deleteProduct()}>Yes
+                        <i className="material-icons right" >delete</i>
                     </button>
                     <button className="btn waves-effect waves-light #5e35b1 deep-purple darken-1" >Cancel
                         <i className="material-icons right">cancel</i>
