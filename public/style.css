@@ -5,8 +5,11 @@
     justify-content: center;
   }
 
-  .card {
+  .pcard {
     max-width: 40%;
     margin: 20px;
   }
+}
+
+.authcard {
 }

@@ -7,7 +7,7 @@ const Home = ({products}) =>{
 
   const productList = products.map(product =>{
     return(
-      <div className="card" key={product._id}>
+      <div className="card pcard" key={product._id}>
         <div className="card-image">
           <img src={product.mediaUrl}/>
           <span className="card-title">{product.name}</span>
