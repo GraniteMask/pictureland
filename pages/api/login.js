@@ -25,7 +25,6 @@ export default async (req, res)=>{
         }else{
             res.status(401).json({error:"Email or Password don't match"})
         }
-        res.status(201).json({message:"Signup Success"})
     }catch(err){
         console.log(err)
     }
