@@ -2,12 +2,14 @@ import Link from 'next/Link'
 import { useState } from 'react'
 import baseUrl from '../helpers/baseUrl'
 import cookie from 'js-cookie'
+import {useRouter} from 'next/router'
 
 const Login = () =>{
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
+    const router = useRouter()
 
-    const userLogin = (e) =>{
+    const userLogin = async (e) =>{
         e.preventDefault()
         const res = await fetch(`${baseUrl}/api/login`,{
             method:"POST",
@@ -21,7 +23,9 @@ const Login = () =>{
         if(res2.error){
             M.toast({html: res2.error, classes:"red"}) 
         }else{
-            cookie.set('token',res.token)
+            console.log(res2)
+            cookie.set('token',res2.token)
+            router.push('/account')
         }
     }
 
