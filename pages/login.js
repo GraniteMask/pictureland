@@ -23,8 +23,9 @@ const Login = () =>{
         if(res2.error){
             M.toast({html: res2.error, classes:"red"}) 
         }else{
-            // console.log(res2)
+            console.log(res2)
             cookie.set('token',res2.token)
+            cookie.set('user',res2.user)
             router.push('/account')
         }
     }
