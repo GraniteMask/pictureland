@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {parseCookies} from 'nookies'
+import cookie from 'js-cookie'
 
 const NavBar = () =>{
     const router = useRouter()
@@ -22,8 +23,9 @@ const NavBar = () =>{
     return(
         <nav>
             <div className="nav-wrapper #5e35b1 deep-purple darken-1">
-            <Link href="/"><a className="brand-logo left">Logo</a></Link>
+            <Link href="/"><a className="brand-logo left">Picture Land</a></Link>
             <ul id="nav-mobile" className="right">
+            <li className={isActive('/cart')}><Link href="/cart" ><a >cart</a></Link></li>
                 {
                     user && 
                     <li className={isActive('/create')}><Link href="/create" ><a >create</a></Link></li>
@@ -31,8 +33,8 @@ const NavBar = () =>{
                 {
                     user ?
                     <>
-                    <li className={isActive('/login')}><Link href="/login" ><a >Account</a></Link></li>
-                    <li ><button className="btn">Logout</button></li>
+                    <li className={isActive('/account')}><Link href="/account" ><a >Account</a></Link></li>
+                    <li ><button className="btn red" onClick={()=>{cookie.remove('token'); router.push('/login')}}>Logout</button></li>
                     </>
                     :
                     <>
@@ -40,8 +42,6 @@ const NavBar = () =>{
                     <li className={isActive('/signup')}><Link href="/signup" ><a >Signup</a></Link></li>
                     </>
                 }
-                
-                
             </ul>
             </div>
         </nav>
