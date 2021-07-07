@@ -5,14 +5,16 @@ import cookie from 'js-cookie'
 
 const NavBar = () =>{
     const router = useRouter()
-    const {token} = parseCookies()
-    let user = false
+    const cookie = parseCookies()
+    // const {token} = parseCookies()
+    // let user = false
+    const user = cookie.user ? JSON.parse(cookie.user) : ""
 
-    if(token){
-        user = true
-    }else{
-        user = false
-    }
+    // if(token){
+    //     user = true
+    // }else{
+    //     user = false
+    // }
 
     function isActive(route){
         if(route == router.pathname){
@@ -27,7 +29,7 @@ const NavBar = () =>{
             <ul id="nav-mobile" className="right">
             <li className={isActive('/cart')}><Link href="/cart" ><a >cart</a></Link></li>
                 {
-                    user && 
+                    user.role!='user' && 
                     <li className={isActive('/create')}><Link href="/create" ><a >create</a></Link></li>
                 }
                 {
