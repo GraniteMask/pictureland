@@ -1,11 +1,14 @@
 import {useRouter} from 'next/router'
 import baseUrl from '../../helpers/baseUrl';
 import {useRef, useEffect} from 'react'
+import {parseCookies} from 'nookies'
 
 
 const Product = ({product}) =>{
     const router = useRouter();
     const modalRef = useRef(null)
+    const cookie = parseCookies()
+    const user = cookie.user ? JSON.parse(cookie.user) : ""
 
     useEffect(()=>{
         M.Modal.init(modalRef.current)
@@ -53,9 +56,12 @@ const Product = ({product}) =>{
                 <i className="material-icons right">add</i>
             </button>
             <p className="left-align">{product.description}</p>
-            <button data-target="modal1" className="btn modal-trigger waves-effect waves-light #d32f2f red darken-2" >Delete
+            {user.role!='user' &&
+                <button data-target="modal1" className="btn modal-trigger waves-effect waves-light #d32f2f red darken-2" >Delete
                 <i className="material-icons left">delete</i>
-            </button>
+                </button>
+            }
+            
 
             {getModal()}
         </div>)

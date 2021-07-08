@@ -5,10 +5,10 @@ import cookie from 'js-cookie'
 
 const NavBar = () =>{
     const router = useRouter()
-    const cookie = parseCookies()
+    const cookieuser = parseCookies()
     // const {token} = parseCookies()
     // let user = false
-    const user = cookie.user ? JSON.parse(cookie.user) : ""
+    const user = cookieuser.user ? JSON.parse(cookieuser.user) : ""
 
     // if(token){
     //     user = true
@@ -29,14 +29,14 @@ const NavBar = () =>{
             <ul id="nav-mobile" className="right">
             <li className={isActive('/cart')}><Link href="/cart" ><a >cart</a></Link></li>
                 {
-                    user.role!='user' && 
+                    user.role=='user' && user.role=='root' &&
                     <li className={isActive('/create')}><Link href="/create" ><a >create</a></Link></li>
                 }
                 {
                     user ?
                     <>
                     <li className={isActive('/account')}><Link href="/account" ><a >Account</a></Link></li>
-                    <li ><button className="btn red" onClick={()=>{cookie.remove('token'); router.push('/login')}}>Logout</button></li>
+                    <li ><button className="btn red" onClick={()=>{cookie.remove('token'); cookie.remove('user'); router.push('/login')}}>Logout</button></li>
                     </>
                     :
                     <>
