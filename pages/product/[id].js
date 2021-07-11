@@ -50,7 +50,7 @@ const Product = ({product}) =>{
 
     const addToCart = async () =>{
         const res = await fetch(`${baseUrl}/api/cart`,{
-            method:"POST",
+            method:"PUT",
             headers:{
                 "Content-Type":"application/json",
                 "Authorization":cookie.token

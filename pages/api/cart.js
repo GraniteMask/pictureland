@@ -37,16 +37,16 @@ const addProduct = Authenticated(async(req,res) =>{
     const {quantity,productId} = req.body   
 
     const cart = await Cart.findOne({user:req.userId})
-    const pExists = cart.products.some(pdoc=>productId === pdoc._id)
+    const pExists = cart.products.some(pdoc=>productId === pdoc.product.toString())
 
     if(pExists){
-        await Cart.findByIdAndUpdate(
+        await Cart.findOneAndUpdate(
             {_id:cart._id,"products.product":productId},
             {$inc:{"products.$.quantity":quantity}}
         )
     }else{
        const newProduct = {quantity,product:productId} 
-       await Cart.findByIdAndUpdate({_id:cart._id},
+       await Cart.findOneAndUpdate({_id:cart._id},
         {$push:{products:newProduct}})
     }
     res.status(200).json({message:"Product added to cart"})
