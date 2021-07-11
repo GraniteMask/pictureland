@@ -2,7 +2,7 @@ import {useRouter} from 'next/router'
 import baseUrl from '../../helpers/baseUrl';
 import {useRef, useEffect, useState} from 'react'
 import {parseCookies} from 'nookies'
-
+import cookie2 from 'js-cookie'
 
 const Product = ({product}) =>{
     const [quantity,setQuantity] = useState(1)
@@ -61,7 +61,13 @@ const Product = ({product}) =>{
             })
         })
         const res2 = await res.json()
-        console.log(res2)
+        if(res2.error){
+            M.toast({html:error,classes:"red"})
+            cookie2.remove("user")
+            cookie2.remove("token")
+            router.push('/login')
+        }
+        M.toast({html:res2.message,classes:"green"})
     }
 
     return(
