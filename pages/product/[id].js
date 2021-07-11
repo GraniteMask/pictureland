@@ -1,10 +1,12 @@
 import {useRouter} from 'next/router'
 import baseUrl from '../../helpers/baseUrl';
-import {useRef, useEffect} from 'react'
+import {useRef, useEffect, useState} from 'react'
 import {parseCookies} from 'nookies'
 
 
 const Product = ({product}) =>{
+    const [quantity,setQuantity] = useState(1)
+
     const router = useRouter();
     const modalRef = useRef(null)
     const cookie = parseCookies()
@@ -46,15 +48,38 @@ const Product = ({product}) =>{
         router.push('/')
     }
 
+    const addToCart = async () =>{
+        const res = await fetch(`${baseUrl}/api/cart`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":cookie.token
+            },
+            body:JSON.stringify({
+                quantity,
+                productId:product._id
+            })
+        })
+        const res2 = await res.json()
+        console.log(res2)
+    }
+
     return(
         <div className="container center-align">
             <h1>{product.name}</h1>
             <img src={product.mediaUrl} style={{width:"30%"}}/> 
             <h5>Rs. {product.price}</h5>
-            <input type="number" style={{width: "400px", margin:"10px"}} min="1" placeholder="Quantity"/>
-            <button className="btn waves-effect waves-light #5e35b1 deep-purple darken-1" >Add for shopping
-                <i className="material-icons right">add</i>
+            <input type="number" style={{width: "400px", margin:"10px"}} min="1" placeholder="Quantity" value={quantity} onChange={(e)=>setQuantity(Number(e.target.value))}/>
+            {user ?
+            <button className="btn waves-effect waves-light #5e35b1 deep-purple darken-1" onClick={()=>addToCart()}>Add for shopping
+            <i className="material-icons right">add</i>
             </button>
+            :
+            <button className="btn waves-effect waves-light #5e35b1 deep-purple darken-1" onClick={()=>router.push('/login')}>Login to add
+            <i className="material-icons right">add</i>
+            </button>
+            }
+            
             <p className="left-align">{product.description}</p>
             {user.role!='user' &&
                 <button data-target="modal1" className="btn modal-trigger waves-effect waves-light #d32f2f red darken-2" >Delete
