@@ -20,6 +20,7 @@ function Authenticated(icomponent){
         try{
             const {userId} = jwt.verify(authorization,process.env.JWT_SECRET)
             req.userId = userId
+            // console.log(userId)
             return icomponent(req,res) // the code of fetchUsercart and addProduct is cut and paste here in this line3
         }catch(err){
            return res.status(401).json({error:"You must logged in"})
@@ -29,7 +30,7 @@ function Authenticated(icomponent){
 
 const fetchUserCart = Authenticated(async (req,res)=>{
     
-    const cart = await Cart.findOne({user:userId})
+    const cart = await Cart.findOne({user:req.userId})
     res.status(200).json(cart.products)   
 })
 
