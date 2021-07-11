@@ -2,8 +2,21 @@ import baseUrl from '../helpers/baseUrl'
 import {parseCookies} from 'nookies'
 import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
+import Link from 'next/link'
+
 const Cart = ({error}) =>{
+    const {token} = parseCookies()
     const router = useRouter()
+
+    if(!token){
+        return(
+            <div className="center-align">
+                <h3>Please Login to view your cart</h3>
+                <Link href="/login"><a><button className="btn">Login</button></a></Link>
+            </div>
+        )
+    }
+
     if(error){
         M.toast({html:error,classes:"red"})
         cookie.remove("user")
