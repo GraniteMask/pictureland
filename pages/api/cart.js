@@ -8,6 +8,10 @@ export default async (req,res)=>{
             break
         case "PUT":
             await addProduct(req,res)
+            break
+        case "DELETE":
+            await removeProduct(req,res)
+            break
     }
 }
 
@@ -53,5 +57,16 @@ const addProduct = Authenticated(async(req,res) =>{
     }
     res.status(200).json({message:"Product added to cart"})
 
+})
+
+const removeProduct = Authenticated(async(req,res)=>{
+    const {productId} = req.body
+    // console.log(req.userId)
+    const cart = await Cart.findOneAndUpdate(
+        {user:req.userId},
+        {$pull:{products:{product:productId}}},
+        {new:true} //to return updated cart
+    ).populate("products.product")
+    res.status(200).json(cart.products)
 })
 

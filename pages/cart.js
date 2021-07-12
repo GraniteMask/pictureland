@@ -3,8 +3,13 @@ import {parseCookies} from 'nookies'
 import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const Cart = ({error,products}) =>{
+    const [cartProducts,setCartProducts] = useState(products)
+
+    
+
     const {token} = parseCookies()
     const router = useRouter()
 
@@ -24,11 +29,11 @@ const Cart = ({error,products}) =>{
         router.push('/login')
     }
 
-    const handleRemove = async() =>{
-        await fetch(`${baseUrl}/api/cart`,{
+    const handleRemove = async(pid) =>{
+        const res = await fetch(`${baseUrl}/api/cart`,{
             method:"DELETE",
-            header:{
-                'Content-Type':"application/json",
+            headers:{
+                "Content-Type":"application/json",
                 "Authorization":token
             },
             body:JSON.stringify({
@@ -37,14 +42,16 @@ const Cart = ({error,products}) =>{
         })
 
         const res2 = await res.json()
-        console.log(res2)
+        setCartProducts(res2)
+        // console.log(res2)
     }
 
     const CartItems = () =>{
+        // console.log(cProducts.map(item=>item.product.name))
         return(
             <>
-                {
-                    products.map(item=>{
+                {   
+                    cartProducts.map(item=>{
                         return(
                             <div style={{display:"flex", margin:"20px"}}>
                                 <img src={item.product.mediaUrl} style={{width:"30%"}}/>
