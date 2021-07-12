@@ -4,7 +4,7 @@ import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
 
-const Cart = ({error}) =>{
+const Cart = ({error,products}) =>{
     const {token} = parseCookies()
     const router = useRouter()
 
@@ -23,8 +23,51 @@ const Cart = ({error}) =>{
         cookie.remove("token")
         router.push('/login')
     }
+
+    const handleRemove = async() =>{
+        await fetch(`${baseUrl}/api/cart`,{
+            method:"DELETE",
+            header:{
+                'Content-Type':"application/json",
+                "Authorization":token
+            },
+            body:JSON.stringify({
+                productId:pid
+            })
+        })
+
+        const res2 = await res.json()
+        console.log(res2)
+    }
+
+    const CartItems = () =>{
+        return(
+            <>
+                {
+                    products.map(item=>{
+                        return(
+                            <div style={{display:"flex", margin:"20px"}}>
+                                <img src={item.product.mediaUrl} style={{width:"30%"}}/>
+                                <div style={{marginLeft:"20px"}}>
+                                    <h6>{item.product.name}</h6>
+                                    <h6>{item.quantity} x {item.product.price}</h6>
+                                    <button className="btn red" onClick={()=>{handleRemove(item.product._id)}}>Remove</button>
+                                </div>
+                            </div>)
+                    })
+                }
+            </>
+        )
+    }
+
     return(
-        <h1>cart page</h1>
+        // <h1>cart page</h1>
+        <>
+            <div className="container">
+                <CartItems />
+            </div>
+            
+        </>
         )
 }
 

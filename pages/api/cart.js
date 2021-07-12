@@ -22,6 +22,7 @@ function Authenticated(icomponent){
             req.userId = userId
             // console.log(userId)
             return icomponent(req,res) // the code of fetchUsercart and addProduct is cut and paste here in this line3
+       
         }catch(err){
            return res.status(401).json({error:"You must logged in"})
         }
@@ -30,7 +31,7 @@ function Authenticated(icomponent){
 
 const fetchUserCart = Authenticated(async (req,res)=>{
     
-    const cart = await Cart.findOne({user:req.userId})
+    const cart = await Cart.findOne({user:req.userId}).populate("products.product")
     res.status(200).json(cart.products)   
 })
 
