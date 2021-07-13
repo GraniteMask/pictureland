@@ -1,8 +1,9 @@
 import Stripe from "stripe";
-import {v4 as uuidv4} from 'uuid'
+import {v4 as uuidV4} from 'uuid'
 import Cart from '../../models/Cart'
+import jwt from 'jsonwebtoken'
 
-const stripe = String(process.env.STRIPE_SECRET)
+const stripe = Stripe(process.env.STRIPE_SECRET)
 
 export default async(req, res)=>{
     const {paymentInfo} = req.body
@@ -22,12 +23,17 @@ export default async(req, res)=>{
             })
 
             const isExistingCustomer = prevCustomer.data.length > 0
+            let newCustomer
 
+
+            
             if(!isExistingCustomer){
-                const newCustomer = await stripe.customer.create({
+                console.log(paymentInfo.email)
+                newCustomer = await stripe.customers.create({
                     email: paymentInfo.email,
                     source:paymentInfo.id
                 })
+                console.log(newCustomer)
             }
 
             const charge = await stripe.charges.create({
@@ -37,13 +43,14 @@ export default async(req, res)=>{
                 customer:isExistingCustomer ? prevCustomer.data[0].id : newCustomer.id,
                 description:`You purchased a product with ${paymentInfo.email} having a price of Rs.${price*100}`
             },{
-                idempotencyKey:uuidv4()
+                idempotencyKey:uuidV4()
             })
 
             res.json(200).json({message:"Payment was Successful"})
 
        
         }catch(err){
+            console.log(err)
            return res.status(401).json({error:"Error Processing Payment"})
         }
 }

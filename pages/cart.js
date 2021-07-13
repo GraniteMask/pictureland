@@ -70,7 +70,7 @@ const Cart = ({error,products}) =>{
     }
 
     const handleCheckout = async(paymentInfo) =>{
-        console.log(paymentInfo)
+        // console.log(paymentInfo)
         const res = await fetch(`${baseUrl}/api/payment`,{
             method:"POST",
             headers:{
