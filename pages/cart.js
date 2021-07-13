@@ -4,6 +4,7 @@ import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
 import { useState } from 'react'
+import StripeCheckout from 'react-stripe-checkout'
 
 const Cart = ({error,products}) =>{
     const [cartProducts,setCartProducts] = useState(products)
@@ -73,7 +74,10 @@ const Cart = ({error,products}) =>{
             <>
             <div className="container" style={{display:"flex", justifyContent:"space-between"}}>
                 <h5>total Rs.{price}</h5>
+
+                <StripeCheckout name="pictureland" amount={price} image={products[0].product.mediaUrl} currency="INR" shippingAddress={true} billingAddress={true} zipCode={true}>
                 <button className="btn">Checkout</button>
+                </StripeCheckout>
             </div>
             </>
             )
