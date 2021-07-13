@@ -1,5 +1,9 @@
 import jwt from 'jsonwebtoken'
 import Cart from '../../models/Cart'
+import Authenticated from '../../helpers/Authenticated'
+import initDB from '../../helpers/initDB'
+
+initDB()
 
 export default async (req,res)=>{
     switch(req.method){
@@ -15,23 +19,23 @@ export default async (req,res)=>{
     }
 }
 
-function Authenticated(icomponent){
-    return(req,res)=>{
-        const {authorization} = req.headers;
-        if(!authorization){
-            return res.status(401).json({error:"you must logged in"})
-        }
-        try{
-            const {userId} = jwt.verify(authorization,process.env.JWT_SECRET)
-            req.userId = userId
-            // console.log(userId)
-            return icomponent(req,res) // the code of fetchUsercart and addProduct is cut and paste here in this line3
+// function Authenticated(icomponent){
+//     return(req,res)=>{
+//         const {authorization} = req.headers;
+//         if(!authorization){
+//             return res.status(401).json({error:"you must logged in"})
+//         }
+//         try{
+//             const {userId} = jwt.verify(authorization,process.env.JWT_SECRET)
+//             req.userId = userId
+//             // console.log(userId)
+//             return icomponent(req,res) // the code of fetchUsercart and addProduct is cut and paste here in this line3
        
-        }catch(err){
-           return res.status(401).json({error:"You must logged in"})
-        }
-    }
-}
+//         }catch(err){
+//            return res.status(401).json({error:"You must logged in"})
+//         }
+//     }
+// }
 
 const fetchUserCart = Authenticated(async (req,res)=>{
     
