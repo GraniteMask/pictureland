@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import {v4 as uuidV4} from 'uuid'
 import Cart from '../../models/Cart'
+import Order from '../../models/Order'
 import jwt from 'jsonwebtoken'
 
 const stripe = Stripe(process.env.STRIPE_SECRET)
@@ -36,7 +37,7 @@ export default async(req, res)=>{
                 // console.log(newCustomer)
             }
 
-            const charge = await stripe.charges.create({
+            await stripe.charges.create({
                 currency:"INR",
                 amount: price * 100,
                 receipt_email: paymentInfo.email,
@@ -44,6 +45,13 @@ export default async(req, res)=>{
                 description:`You purchased a product with ${paymentInfo.email} having a price of Rs.${price*100}`
             },{
                 idempotencyKey:uuidV4()
+            })
+
+            await new Order({
+                user:userId,
+                email:paymentInfo.email,
+                total:price,
+                products:cart.products
             })
 
             await Cart.findOneAndUpdate(
