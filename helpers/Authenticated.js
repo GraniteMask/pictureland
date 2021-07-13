@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken'
+
 export default function Authenticated(icomponent){
     return(req,res)=>{
         const {authorization} = req.headers;
