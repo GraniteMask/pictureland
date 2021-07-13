@@ -52,7 +52,7 @@ export default async(req, res)=>{
                 email:paymentInfo.email,
                 total:price,
                 products:cart.products
-            })
+            }).save()
 
             await Cart.findOneAndUpdate(
                 {_id:cart._id},

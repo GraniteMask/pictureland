@@ -90,19 +90,25 @@ const Cart = ({error,products}) =>{
             <>
             <div className="container" style={{display:"flex", justifyContent:"space-between"}}>
                 <h5>total Rs.{price}</h5>
+
+                {
+                    products.length != 0 &&
+
+                    <StripeCheckout 
+                    name="pictureland"
+                    amount={price*100}
+                    image={products.length > 0 ? products[0].product.mediaUrl : ""}
+                    currency="INR"
+                    shippingAddress={true}
+                    billingAddress={true}
+                    zipCode={true}
+                    stripeKey="pk_test_51JCktoSI70bK7gHue5pYjMePyxo2wv5M6DUIV5yei7EBZ5xbGB7XeR1dE50adcFC7I7NX91Hz6PZexZp4iYolgmb00KLFPxPtk"
+                    token={(paymentInfo)=>handleCheckout(paymentInfo)}>
+                    <button className="btn">Checkout</button>
+                    </StripeCheckout>
+                }
                 
-                <StripeCheckout 
-                name="pictureland"
-                amount={price*100}
-                image={products[0].product.mediaUrl}
-                currency="INR"
-                shippingAddress={true}
-                billingAddress={true}
-                zipCode={true}
-                stripeKey="pk_test_51JCktoSI70bK7gHue5pYjMePyxo2wv5M6DUIV5yei7EBZ5xbGB7XeR1dE50adcFC7I7NX91Hz6PZexZp4iYolgmb00KLFPxPtk"
-                token={(paymentInfo)=>handleCheckout(paymentInfo)}>
-                <button className="btn">Checkout</button>
-                </StripeCheckout>
+                
             </div>
             </>
             )
