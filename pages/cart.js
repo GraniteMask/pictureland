@@ -69,8 +69,20 @@ const Cart = ({error,products}) =>{
         )
     }
 
-    const handleCheckout = (paymentInfo) =>{
+    const handleCheckout = async(paymentInfo) =>{
         console.log(paymentInfo)
+        const res = await fetch(`${baseUrl}/api/payment`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":token
+            },
+            body:JSON.stringify(({
+                paymentInfo
+            }))
+        })
+        const res2 = await res.json()
+        console.log(res2)
     }
 
     const TotalPrice = () =>{
