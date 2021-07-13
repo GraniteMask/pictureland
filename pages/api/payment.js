@@ -33,7 +33,7 @@ export default async(req, res)=>{
                     email: paymentInfo.email,
                     source:paymentInfo.id
                 })
-                console.log(newCustomer)
+                // console.log(newCustomer)
             }
 
             const charge = await stripe.charges.create({
@@ -46,11 +46,16 @@ export default async(req, res)=>{
                 idempotencyKey:uuidV4()
             })
 
-            res.json(200).json({message:"Payment was Successful"})
+            await Cart.findOneAndUpdate(
+                {_id:cart._id},
+                {$set:{products:[]}}
+            )
+
+            res.status(200).json({message:"Payment was Successful"})
 
        
         }catch(err){
-            console.log(err)
+            // console.log(err)
            return res.status(401).json({error:"Error Processing Payment"})
         }
 }
