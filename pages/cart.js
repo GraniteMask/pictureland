@@ -67,11 +67,24 @@ const Cart = ({error,products}) =>{
         )
     }
 
+    const TotalPrice = () =>{
+        return(
+            <>
+            <div className="container" style={{display:"flex", justifyContent:"space-between"}}>
+                <h5>total Rs.200</h5>
+                <button className="btn">Checkout</button>
+            </div>
+            </>
+            )
+            
+    }
+
     return(
         // <h1>cart page</h1>
         <>
             <div className="container">
                 <CartItems />
+                <TotalPrice />
             </div>
             
         </>
