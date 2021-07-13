@@ -9,7 +9,7 @@ const Cart = ({error,products}) =>{
     const [cartProducts,setCartProducts] = useState(products)
 
     
-
+    let price = 0
     const {token} = parseCookies()
     const router = useRouter()
 
@@ -52,6 +52,7 @@ const Cart = ({error,products}) =>{
             <>
                 {   
                     cartProducts.map(item=>{
+                        price = price + item.quantity * item.product.price
                         return(
                             <div style={{display:"flex", margin:"20px"}}>
                                 <img src={item.product.mediaUrl} style={{width:"30%"}}/>
@@ -71,7 +72,7 @@ const Cart = ({error,products}) =>{
         return(
             <>
             <div className="container" style={{display:"flex", justifyContent:"space-between"}}>
-                <h5>total Rs.200</h5>
+                <h5>total Rs.{price}</h5>
                 <button className="btn">Checkout</button>
             </div>
             </>
