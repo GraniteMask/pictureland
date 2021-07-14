@@ -7,6 +7,12 @@ const Account = ({orders}) =>{
     const cookie = parseCookies()
     const user = cookie.user ? JSON.parse(cookie.user) : ""
 
+    // if(orders.length == 0){
+    //     return(
+            
+    //     )
+    // }
+
     useEffect(()=>{
         M.Collapsible.init(orderCard.current)
     },[])
@@ -16,13 +22,13 @@ const Account = ({orders}) =>{
             <ul class="collapsible" ref={orderCard}>
                 {orders.map(item=>{
                     return(
-                        <li>
+                        <li key={item._id}>
                             <div className="collapsible-header"><i className="material-icons">folder</i>{item.createdAt}</div>
                             <div className="collapsible-body">
                                 <h5>Total Rs. {item.total}</h5>
                                 {
                                     item.products.map(pitem=>{
-                                        return <h6>{pitem.product.name} x {pitem.quantity}</h6>
+                                        return <h6 key={pitem._id}>{pitem.product.name} x {pitem.quantity}</h6>
                                     })
                                 }
                             </div>
@@ -38,7 +44,16 @@ const Account = ({orders}) =>{
             <div className="center-align">
                 <h4>{user.name}</h4>
                 <h4>{user.email}</h4>
-                <OrderHistory />
+                <h3>Order History</h3>
+                {
+                    orders.length == 0 ?
+                    <div className="container center-align">
+                        <h2>You have no order history</h2>
+                    </div>
+                    :
+                    <OrderHistory />
+                }
+                
             </div>
         </div>
         )

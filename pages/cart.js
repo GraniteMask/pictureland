@@ -82,7 +82,9 @@ const Cart = ({error,products}) =>{
             }))
         })
         const res2 = await res.json()
-        console.log(res2)
+        // console.log(res2)
+        M.toast({html: res2.message, classes:"green"}) 
+        router.push('/')
     }
 
     const TotalPrice = () =>{
