@@ -71,7 +71,7 @@ export async function getServerSideProps(ctx){
        res.end()
    }
 
-   const res = await fetch(`${baseUrl}/api/orders`,{
+   const res = await fetch(`https://pictureland.vercel.app/api/orders`,{
        headers:{
            "Authorization":token
        }
