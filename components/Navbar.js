@@ -29,7 +29,7 @@ const NavBar = () =>{
             <ul id="nav-mobile" className="right">
             <li className={isActive('/cart')}><Link href="/cart" ><a >cart</a></Link></li>
                 {
-                    user.role=='user' && user.role=='root' &&
+                    (user.role=='admin' || user.role=='root') &&
                     <li className={isActive('/create')}><Link href="/create" ><a >create</a></Link></li>
                 }
                 {

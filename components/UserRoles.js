@@ -15,7 +15,7 @@ function UserRoles(){
             }
         })
         const res2 = await res.json()
-        console.log(res2)
+        // console.log(res2)
         setUsers(res2)
     }
 
@@ -32,7 +32,7 @@ function UserRoles(){
             })
         })
         const res2 = await res.json()
-        console.log(res2)
+        // console.log(res2)
 
         const updatedUsers = users.map(user=>{
             if((user.role != res2.role) && (user.email == res2.email)){
@@ -62,7 +62,7 @@ function UserRoles(){
                     <tr>
                         <td>{item.name}</td>
                         <td>{item.email}</td>
-                        <td onClick={()=>handleRole(item._id,item.role)}>{item.role}</td>
+                        <td onClick={()=>handleRole(item._id,item.role)} style={{cursor:"pointer"}}>{item.role}</td>
                     </tr>  
                 )
             })}
