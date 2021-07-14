@@ -23,6 +23,7 @@ function UserRoles(){
         const res = await fetch(`${baseUrl}/api/users`,{
             method:"PUT",
             headers:{
+                "Content-Type":"application/json",
                 "Authorization":token
             },
             body:JSON.stringify({
@@ -32,7 +33,15 @@ function UserRoles(){
         })
         const res2 = await res.json()
         console.log(res2)
-        // setUsers(res2)
+
+        const updatedUsers = users.map(user=>{
+            if((user.role != res2.role) && (user.email == res2.email)){
+                return res2
+            }else{
+                return user
+            }
+        })
+        setUsers(updatedUsers)
     }
 
     return(
