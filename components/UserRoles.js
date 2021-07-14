@@ -18,6 +18,23 @@ function UserRoles(){
         console.log(res2)
         setUsers(res2)
     }
+
+    const handleRole = async (_id,role) =>{
+        const res = await fetch(`${baseUrl}/api/users`,{
+            method:"PUT",
+            headers:{
+                "Authorization":token
+            },
+            body:JSON.stringify({
+                _id,
+                role
+            })
+        })
+        const res2 = await res.json()
+        console.log(res2)
+        // setUsers(res2)
+    }
+
     return(
         <>
         {/* <h1>User Roles</h1> */}
@@ -36,7 +53,7 @@ function UserRoles(){
                     <tr>
                         <td>{item.name}</td>
                         <td>{item.email}</td>
-                        <td onClick={()=>handleRole()}>{item.role}</td>
+                        <td onClick={()=>handleRole(item._id,item.role)}>{item.role}</td>
                     </tr>  
                 )
             })}
