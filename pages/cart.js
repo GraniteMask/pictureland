@@ -2,7 +2,7 @@ import baseUrl from '../helpers/baseUrl'
 import {parseCookies} from 'nookies'
 import cookie from 'js-cookie'
 import {useRouter} from 'next/router'
-import Link from ''
+import Link from 'next/link'
 import { useState } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 
