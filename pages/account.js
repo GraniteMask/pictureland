@@ -73,6 +73,7 @@ export async function getServerSideProps(ctx){
 
    const res = await fetch(`${baseUrl}/api/orders`,{
        headers:{
+            "Content-Type":"application/json",
            "Authorization":token
        }
    })
