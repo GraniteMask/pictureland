@@ -87,7 +87,7 @@ const Product = ({product}) =>{
             }
             
             <p className="left-align">{product.description}</p>
-            {user.role!='user' &&
+            {(user.role=='admin' || user.role=='root') &&
                 <button data-target="modal1" className="btn modal-trigger waves-effect waves-light #d32f2f red darken-2" >Delete
                 <i className="material-icons left">delete</i>
                 </button>
@@ -98,17 +98,7 @@ const Product = ({product}) =>{
         </div>)
 }
 
-export async function getServerSideProps({params:{id}}){
-
-    const res = await fetch(`${baseUrl}/api/product/${id}`)
-    const data = await res.json()
-
-    return{
-        props: {product:data},
-    }
-}
-
-// export async function getStaticProps({params:{id}}){
+// export async function getServerSideProps({params:{id}}){
 
 //     const res = await fetch(`${baseUrl}/api/product/${id}`)
 //     const data = await res.json()
@@ -118,13 +108,23 @@ export async function getServerSideProps({params:{id}}){
 //     }
 // }
 
-// export async function getStaticPaths() {
-//     return {
-//       paths: [
-//         { params: { id: "609d912ffd9707413ea2401c"} } // See the "paths" section below
-//       ],
-//       fallback:  true // See the "fallback" section below
-//     };
-//   }
+export async function getStaticProps({params:{id}}){
+
+    const res = await fetch(`${baseUrl}/api/product/${id}`)
+    const data = await res.json()
+
+    return{
+        props: {product:data},
+    }
+}
+
+export async function getStaticPaths() {
+    return {
+      paths: [
+        { params: { id: "609d912ffd9707413ea2401c"} } // See the "paths" section below
+      ],
+      fallback:  true // See the "fallback" section below
+    };
+  }
 
 export default Product
