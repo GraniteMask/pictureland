@@ -1,4 +1,4 @@
-import Link from 'next/Link'
+import Link from 'next/link'
 import { useState } from 'react'
 import baseUrl from '../helpers/baseUrl'
 import cookie from 'js-cookie'
