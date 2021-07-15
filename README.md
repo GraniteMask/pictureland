@@ -1,4 +1,4 @@
-# Sociogram-1
+# PictureLand
 A website built using NEXT.js and have the functionality to buy images for productive usage. Its a Nextjs technological demonstration project.
 
 Link: https://pictureland2021.vercel.app/
