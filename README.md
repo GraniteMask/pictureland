@@ -1,34 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sociogram-1
+A website built using NEXT.js and have the functionality to buy images for productive usage. Its a Nextjs technological demonstration project.
 
-## Getting Started
+Link: https://pictureland2021.vercel.app/
 
-First, run the development server:
+![Pictureland Home Page](https://github.com/GraniteMask/pictureland/blob/master/PictureLand.png?raw=true)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## SNEEK-PEEK of technologies I used:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1) NextJs Framework
+2) Database : Mongo ATLAS
+3) Cloudstorage: Cloudinary API
+4) Authentication: JsonWebtokens (JWT), js-cookies
+5) Code Editor: VS Code
+6) Backend Packages: Nodemailer, Nodemon, Express, nookies etc.
+7) Deployment: Vercel
+8) Payment: Stripe API 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Highlighted Features:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1) Creating profile
+2) Login and SignUp using JWT
+3) Create and delete products if you are a seller approved by admin
+4) Buying your favourite pictures and pay using your credit card
+5) Showing your order details
+6) Admin can change the role of a registered person from user to admin in one click
