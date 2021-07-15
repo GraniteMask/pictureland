@@ -76,11 +76,11 @@ export async function getServerSideProps(ctx){
            "Authorization":token
        }
    })
-   const res2 =  await res.json()
+   const orders =  await res.json()
 //    console.log(res2)
 
    return{
-       props: {orders:res2}
+       props: {orders}
    }
 }
 
