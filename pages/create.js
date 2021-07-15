@@ -45,7 +45,7 @@ const Create = () =>{
         data.append('file', media)
         data.append('upload_preset',"pictureland")
         data.append('cloud_name','rd1')
-        const res = await fetch('https://api.cloudinary.com/v1_1/rd1/image/upload',{
+        const res = await fetch('',{
             method:"POST",
             body: data
         })
