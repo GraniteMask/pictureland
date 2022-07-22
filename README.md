@@ -5,6 +5,8 @@ Link: https://pictureland2021.vercel.app/
 
 Working Video: https://www.linkedin.com/posts/ratnadeep-das-choudhury-623605197_nodejs-react-mongodb-activity-6821529001224482817-w1Mm
 
+Pictureland version 2 repo link: https://github.com/GraniteMask/nextjs-pictureland-2.0
+
 ![Pictureland Home Page](https://github.com/GraniteMask/pictureland/blob/master/PictureLand.png?raw=true)
 
 ## SNEEK-PEEK of technologies I used:
